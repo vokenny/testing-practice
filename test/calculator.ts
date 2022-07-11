@@ -1,4 +1,4 @@
-// TODO: Implement these these test first
+// TODO: Implement these tests first
 describe.skip('calculator', () => {
   describe('add', () => {});
   describe('subtract', () => {});
