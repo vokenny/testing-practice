@@ -4,7 +4,10 @@ export const calculator = {
     return x + y;
   },
 
-  // subtract(x: number, y: number): number {},
+  subtract(x: number, y: number): number {
+    return x - y;
+  },
+
   // multiply(x: number, y: number): number {},
   // divide(x: number, y: number): number {},
 };
