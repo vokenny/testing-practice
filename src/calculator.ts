@@ -1,4 +1,3 @@
-// TODO: Implement these methods
 export const calculator = {
   add(x: number, y: number): number {
     return x + y;
@@ -12,5 +11,9 @@ export const calculator = {
     return x * y;
   },
 
-  // divide(x: number, y: number): number {},
+  divide(x: number, y: number): number {
+    if (y === 0) throw new Error('Cannot divide by zero');
+
+    return x / y;
+  },
 };

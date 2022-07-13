@@ -1,6 +1,5 @@
 import { calculator } from '../src/calculator';
 
-// TODO: Implement these tests first
 describe('calculator', () => {
   describe('add', () => {
     it.each([
@@ -65,5 +64,26 @@ describe('calculator', () => {
     });
   });
 
-  describe.skip('divide', () => {});
+  describe('divide', () => {
+    it.each([
+      [30, 6, 5],
+      [9, 3, 3],
+      [-50, 25, -2],
+    ])('should divide %d and %d to get %d', (x, y, result) => {
+      expect(calculator.divide(x, y)).toEqual(result);
+    });
+
+    it.each([
+      [1, 2, 0.5],
+      [0.5, 0.1, 5],
+      [1.8, 1.2, 1.5],
+      [-4.5, -2.2, 2.04545],
+    ])('should divide %f and %f to get %f', (x, y, result) => {
+      expect(calculator.divide(x, y)).toBeCloseTo(result);
+    });
+
+    it('should throw an error when dividing by zero', () => {
+      expect(() => calculator.divide(10, 0)).toThrow(/^Cannot divide by zero$/);
+    });
+  });
 });
