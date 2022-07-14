@@ -11,8 +11,9 @@ describe('caesarCypher', () => {
       'Ymj vznhp gwtbs ktc ozrux tajw ymj qfed itl.',
       5,
     ],
+    ['test@email.com', 'ithi@tbpxa.rdb', 15],
   ])(
-    'should transform %s to %s based on key of %d',
+    "should transform '%s' to '%s' based on key of %d",
     (original, cypher, key) => {
       expect(caesarCypher(key, original)).toBe(cypher);
     }
