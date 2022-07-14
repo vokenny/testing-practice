@@ -1,4 +1,4 @@
-import reverseStr from '../src/reverse-str';
+import reverseStr from '../src/reverseStr';
 
 describe('reverseStr', () => {
   it.each([
