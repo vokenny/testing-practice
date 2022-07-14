@@ -1,14 +1,14 @@
-const alphabetArr: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('');
-const NUM_OF_CHARS: number = alphabetArr.length;
-const originalKeyMap: {} = alphabetArr.reduce(
-  (keyMap: {}, char: string, idx: number) => ({ ...keyMap, [idx]: char }),
-  {}
-);
+const LOWER_ALPHABET: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('');
+const UPPER_ALPHABET: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const NUM_OF_CHARS: number = UPPER_ALPHABET.length;
 
-function keyMapGen(key: number): {} {
+const isLowerCase = (char: string): boolean => char === char.toLowerCase();
+
+function keyMapGen(key: number, alphabetArr): {} {
   return alphabetArr.reduce((keyMap: {}, char: string, idx: number): {} => {
     const shiftedIdx = idx + key;
-    const keyMapIdx: number =
+
+    const newKeyIdx: number =
       shiftedIdx < 0
         ? shiftedIdx + NUM_OF_CHARS
         : shiftedIdx >= NUM_OF_CHARS
@@ -17,20 +17,28 @@ function keyMapGen(key: number): {} {
 
     return {
       ...keyMap,
-      [char]: originalKeyMap[keyMapIdx],
+      [char]: isLowerCase(char)
+        ? LOWER_ALPHABET[newKeyIdx]
+        : UPPER_ALPHABET[newKeyIdx],
     };
   }, {});
 }
 
 export default function caesarCypher(key: number, plainText: string): any {
-  const shiftedKeyMap = keyMapGen(key);
-  console.log(shiftedKeyMap);
+  const shiftedLowerKeyMap = keyMapGen(key, LOWER_ALPHABET);
+  const shiftedUpperKeyMap = keyMapGen(key, UPPER_ALPHABET);
 
-  return plainText
+  const cypher: string = plainText
     .split('')
-    .reduce(
-      (cypher, char) =>
-        shiftedKeyMap[char] ? cypher + shiftedKeyMap[char] : cypher + char,
-      ''
-    );
+    .reduce((cypher: string, char: string) => {
+      const newChar: string = LOWER_ALPHABET.includes(char)
+        ? shiftedLowerKeyMap[char]
+        : UPPER_ALPHABET.includes(char)
+        ? shiftedUpperKeyMap[char]
+        : char;
+
+      return cypher + newChar;
+    }, '');
+
+  return cypher;
 }
