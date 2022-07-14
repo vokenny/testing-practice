@@ -3,8 +3,8 @@ const NUM_OF_CHARS: number = ALPHABET_ARR.length;
 
 const isLowerCase = (char: string): boolean => char === char.toLowerCase();
 
-function keyMapGen(key: number, alphabetArr): {} {
-  return alphabetArr.reduce((keyMap: {}, char: string, idx: number): {} => {
+function keyMapGen(key: number): {} {
+  return ALPHABET_ARR.reduce((keyMap: {}, char: string, idx: number): {} => {
     const shiftedIdx = idx + key;
 
     const newKeyIdx: number =
@@ -22,7 +22,7 @@ function keyMapGen(key: number, alphabetArr): {} {
 }
 
 export default function caesarCypher(key: number, plainText: string): any {
-  const shiftedKeyMap = keyMapGen(key, ALPHABET_ARR);
+  const shiftedKeyMap = keyMapGen(key);
 
   const cypher: string = plainText
     .split('')
