@@ -1,6 +1,5 @@
-const LOWER_ALPHABET: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('');
-const UPPER_ALPHABET: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-const NUM_OF_CHARS: number = UPPER_ALPHABET.length;
+const ALPHABET_ARR: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('');
+const NUM_OF_CHARS: number = ALPHABET_ARR.length;
 
 const isLowerCase = (char: string): boolean => char === char.toLowerCase();
 
@@ -17,25 +16,23 @@ function keyMapGen(key: number, alphabetArr): {} {
 
     return {
       ...keyMap,
-      [char]: isLowerCase(char)
-        ? LOWER_ALPHABET[newKeyIdx]
-        : UPPER_ALPHABET[newKeyIdx],
+      [char]: ALPHABET_ARR[newKeyIdx],
     };
   }, {});
 }
 
 export default function caesarCypher(key: number, plainText: string): any {
-  const shiftedLowerKeyMap = keyMapGen(key, LOWER_ALPHABET);
-  const shiftedUpperKeyMap = keyMapGen(key, UPPER_ALPHABET);
+  const shiftedKeyMap = keyMapGen(key, ALPHABET_ARR);
 
   const cypher: string = plainText
     .split('')
     .reduce((cypher: string, char: string) => {
-      const newChar: string = LOWER_ALPHABET.includes(char)
-        ? shiftedLowerKeyMap[char]
-        : UPPER_ALPHABET.includes(char)
-        ? shiftedUpperKeyMap[char]
-        : char;
+      const lowerChar: string = char.toLowerCase();
+      if (!ALPHABET_ARR.includes(lowerChar)) return cypher + char;
+
+      const newChar: string = isLowerCase(char)
+        ? shiftedKeyMap[lowerChar]
+        : shiftedKeyMap[lowerChar].toUpperCase();
 
       return cypher + newChar;
     }, '');
